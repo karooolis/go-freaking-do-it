@@ -1,0 +1,21 @@
+@import "main";
+@import "how-it-works";
+
+body, html {
+  height: 100%;
+  min-width: 500px;
+  color: #090909;
+  margin: 0px;
+  font: 400 16px/1.8 Karla, sans-serif;
+}
+
+#wrapper { min-height: 500px; }
+
+#root, #wrapper, #bg {
+  position: relative;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
