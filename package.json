@@ -1,0 +1,26 @@
+{
+  "name": "go-freaking-do-it",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramkarolis/go-freaking-do-it.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramkarolis/go-freaking-do-it/issues"
+  },
+  "homepage": "https://github.com/ramkarolis/go-freaking-do-it#readme",
+  "dependencies": {
+    "truffle-hdwallet-provider": "0.0.3",
+    "zeppelin-solidity": "^1.8.0"
+  }
+}

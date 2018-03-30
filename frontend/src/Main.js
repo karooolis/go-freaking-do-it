@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Eth from 'ethjs';
 import contract from 'truffle-contract';
 import moment from 'moment';
+import momenttz from 'moment-timezone';
 import scrollToElement from 'scroll-to-element';
 
 import GoFuckingDoItArtifact from './GoFreakingDoIt.json';
@@ -308,10 +309,3 @@ class Main extends Component {
 }
 
 export default Main;
-
-// {this.calculateDeadline().fromNow}
-
-/*
-  <a href={`https://facebook.com/sharer.php?u=http://gofreakingdoit.com`} target="_blank" id="facebook-share" className="share-btn"><i class="fa fa-facebook" aria-hidden="true"></i> Share</a>
-  <a href={`https://facebook.com/sharer.php?u=http://gofreakingdoit.com`}  target="_blank"id="twitter-share" className="share-btn"><i class="fa fa-twitter" aria-hidden="true"></i> Share</a>
- */

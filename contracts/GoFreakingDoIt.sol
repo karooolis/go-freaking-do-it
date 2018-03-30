@@ -1,34 +1,25 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.4.15;
 
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 contract GoFreakingDoIt is Ownable {
     struct Goal {
-    	bytes32 hash;
-        address owner; // goal owner addr
-        string description; // set goal description
-        uint amount; // set goal amount
-        string supervisorEmail; // email of friend
-        string creatorEmail; // email of friend
+        bytes32 hash;
+        address owner;
+        string description;
+        uint amount;
+        string supervisorEmail;
+        string creatorEmail;
         string deadline;
         bool emailSent;
         bool completed;
     }
 
-    // address owner;
-	mapping (bytes32 => Goal) public goals;
-	Goal[] public activeGoals;
+    mapping (bytes32 => Goal) public goals;
+    Goal[] public activeGoals;
 
-	address test;
-
-	// GoFreakingDoIt.deployed().then(function(instance) {app=instance;})
-	// function GoFreakingDoIt() {
-	// 	owner = msg.sender;
-	// }
-
-	// Events
     event setGoalEvent (
-    	address _owner,
+        address _owner,
         string _description,
         uint _amount,
         string _supervisorEmail,
@@ -41,78 +32,72 @@ contract GoFreakingDoIt is Ownable {
     event setGoalSucceededEvent(bytes32 hash, bool _completed);
     event setGoalFailedEvent(bytes32 hash, bool _completed);
 
-	// app.setGoal("Finish cleaning", "hello@karolisram.com", "hello@karolisram.com", "2017-12-12", {value: web3.toWei(11.111, 'ether')})
-	// app.setGoal("Finish cleaning", "hello@karolisram.com", "hello@karolisram.com", "2017-12-12", {value: web3.toWei(11.111, 'ether'), from: web3.eth.accounts[1]})
-	function setGoal(string _description, string _supervisorEmail, string _creatorEmail, string _deadline) payable returns (bytes32, address, string, uint, string, string, string) {
-		require(msg.value > 0);
-		require(keccak256(_description) != keccak256(''));
-		require(keccak256(_creatorEmail) != keccak256(''));
-		require(keccak256(_deadline) != keccak256(''));
+    function setGoal(string _description, string _supervisorEmail, string _creatorEmail, string _deadline) public payable returns (bytes32, address, string, uint, string, string, string) {
+        require(msg.value > 0);
+        require(keccak256(_description) != keccak256(""));
+        require(keccak256(_creatorEmail) != keccak256(""));
+        require(keccak256(_deadline) != keccak256(""));
 
-		bytes32 hash = keccak256(msg.sender, _description, msg.value, _deadline);
+        bytes32 hash = keccak256(msg.sender, _description, msg.value, _deadline);
 
-		Goal memory goal = Goal({
-			hash: hash,
-			owner: msg.sender,
-			description: _description,
-			amount: msg.value,
-			supervisorEmail: _supervisorEmail,
-			creatorEmail: _creatorEmail,
-			deadline: _deadline,
-			emailSent: false,
-			completed: false
-		});
+        assert(keccak256(goals[hash].description) == keccak256(""));
 
-		goals[hash] = goal;
-		activeGoals.push(goal);
+        Goal memory goal = Goal({
+            hash: hash,
+            owner: msg.sender,
+            description: _description,
+            amount: msg.value,
+            supervisorEmail: _supervisorEmail,
+            creatorEmail: _creatorEmail,
+            deadline: _deadline,
+            emailSent: false,
+            completed: false
+        });
 
-		setGoalEvent(goal.owner, goal.description, goal.amount, goal.supervisorEmail, goal.creatorEmail, goal.deadline, goal.emailSent, goal.completed);
+        goals[hash] = goal;
+        activeGoals.push(goal);
 
-		return (hash, goal.owner, goal.description, goal.amount, goal.supervisorEmail, goal.creatorEmail, goal.deadline);
-	}
+        setGoalEvent(goal.owner, goal.description, goal.amount, goal.supervisorEmail, goal.creatorEmail, goal.deadline, goal.emailSent, goal.completed);
 
-	function getGoalsCount() constant returns (uint count) {
-	    return activeGoals.length;
-	}
+        return (hash, goal.owner, goal.description, goal.amount, goal.supervisorEmail, goal.creatorEmail, goal.deadline);
+    }
 
-	// app.setEmailSent("0x00f2484d16ad04b395c6261b978fb21f0c59210d98e9ac361afc4772ab811393", {from: web3.eth.accounts[1]})
-	function setEmailSent(uint _index, bytes32 _hash) onlyOwner {
-		assert(goals[_hash].amount > 0);
+    function getGoalsCount() public constant returns (uint count) {
+        return activeGoals.length;
+    }
 
-		goals[_hash].emailSent = true;
-		activeGoals[_index].emailSent = true;
-	}
+    function setEmailSent(uint _index, bytes32 _hash) public onlyOwner {
+        assert(goals[_hash].amount > 0);
 
-	function setGoalSucceeded(uint _index, bytes32 _hash) onlyOwner {
-		assert(goals[_hash].amount > 0);
+        goals[_hash].emailSent = true;
+        activeGoals[_index].emailSent = true;
+    }
 
-		goals[_hash].completed = true;
-		activeGoals[_index].completed = true;
+    function setGoalSucceeded(uint _index, bytes32 _hash) public onlyOwner {
+        assert(goals[_hash].amount > 0);
 
-		goals[_hash].owner.transfer(goals[_hash].amount); // send ether back to person who set the goal
+        goals[_hash].completed = true;
+        activeGoals[_index].completed = true;
 
-		setGoalSucceededEvent(_hash, true);
-	}
+        goals[_hash].owner.transfer(goals[_hash].amount);
 
-	// app.setGoalFailed(0, '0xf7a1a8aa52aeaaaa353ab49ab5cd735f3fd02598b4ff861b314907a414121ba4')
-	function setGoalFailed(uint _index, bytes32 _hash) {
-		assert(goals[_hash].amount > 0);
-		// assert(goals[_hash].emailSent == true);
+        setGoalSucceededEvent(_hash, true);
+    }
 
-		goals[_hash].completed = false;
-		activeGoals[_index].completed = false;
+    function setGoalFailed(uint _index, bytes32 _hash) public onlyOwner {
+        assert(goals[_hash].amount > 0);
 
-		owner.transfer(goals[_hash].amount); // send ether to contract owner
+        goals[_hash].completed = false;
+        activeGoals[_index].completed = false;
 
-		setGoalFailedEvent(_hash, false);
-	}
+        owner.transfer(goals[_hash].amount);
 
-	// Fallback function in case someone sends ether to the contract so it doesn't get lost
-	function() payable {}
+        setGoalFailedEvent(_hash, false);
+    }
 
-    function kill() onlyOwner { 
-    	selfdestruct(owner);
+    function() public payable {}
+
+    function kill() public onlyOwner { 
+        selfdestruct(owner);
     }
 }
-
-// web3.fromWei(web3.eth.getBalance(web3.eth.accounts[1]).toNumber(), 'ether')
