@@ -8,19 +8,19 @@ const HowItWorks = () => (
 			</div>
 
 			<div className="col-xs-12 col-md-10 col-md-push-1">
-				<p><a href="https://rinkeby.etherscan.io/address/0x61001ac63e11cec4e30fa2641d01bbdfd0a1ec2e" target="_blank">Go Freaking Do It</a> runs as an Ethereum smart contract where the whole idea is to establish a contract between yourself and the application to achieve a certain goal. The outcome of the smart contract is determined by a delegated 3rd party, in this case the delegated supervisor such as your friend.</p>
+				<p><b><a href="https://rinkeby.etherscan.io/address/0xb08fa94bc5245f8f4f708c9f5eed5bf88ecb5241" target="_blank">Go Freaking Do It</a></b> runs as an Ethereum smart contract where the whole idea is to establish a contract between yourself and the application to achieve a certain goal. The outcome of the smart contract is determined by a delegated 3rd party, in this case the delegated supervisor such as your friend.</p>
 
-				<p>Keep in mind that for now it only runs on test <b>Rinkeby network</b> and only acts as a social experiment.</p>
+				<p>Keep in mind that for now it only runs on test <b><a href="https://rinkeby.etherscan.io/address/0xb08fa94bc5245f8f4f708c9f5eed5bf88ecb5241" target="_blank">Rinkeby network</a></b> and only acts as a social experiment.</p>
 
 				<p>All users' goals are stored on Ethereum blockchain and can be publicly verified by anyone.</p>
 
 				<p>All goals are checked periodically to check the status of the goal. If deadline time has arrived, supervisor will be emailed to confirm whether you reached your goal. Supervisor's response, or lack of it, will determine whether the goal has been reached.</p>
 
-				<p>Upon supervisor's response <a href="https://rinkeby.etherscan.io/address/0x61001ac63e11cec4e30fa2641d01bbdfd0a1ec2e" target="_blank">Go Freaking Do It</a> smart contract will automatically send your funds back if you reached your goal, and will keep the funds otherwise.</p> 
+				<p>Upon supervisor's response <b><a href="https://rinkeby.etherscan.io/address/0xb08fa94bc5245f8f4f708c9f5eed5bf88ecb5241" target="_blank">Go Freaking Do It</a></b> smart contract will automatically send your funds back if you reached your goal, and will keep the funds otherwise.</p> 
 
-				<p>You may interact with the contract via Application Binary Interface (ABI) and verify it on <a href="https://rinkeby.etherscan.io/address/0xb08fa94bc5245f8f4f708c9f5eed5bf88ecb5241#code" target="_blank">Rinkeby Etherscan</a>.</p>
+				<p>You may interact with the contract via Application Binary Interface (ABI) and verify it on <b><a href="https://rinkeby.etherscan.io/address/0xb08fa94bc5245f8f4f708c9f5eed5bf88ecb5241#code" target="_blank">Rinkeby Etherscan</a></b>.</p>
 
-				<p>Get involved in the discussion about the project on <a href="https://news.ycombinator.com/item?id=15843738" target="_blank">Hacker News</a> thread.</p>
+				<p>Get involved in the discussion about the project on <b><a href="https://news.ycombinator.com/item?id=15843738" target="_blank">Hacker News</a></b> thread.</p>
 			</div>
 		</div>
 	</div>
