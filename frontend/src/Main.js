@@ -276,7 +276,7 @@ class Main extends Component {
           <div id="share-goal-text">
             <p><b>Your goal was saved. Time to get cracking!</b></p>
             <p>On {moment(this.state.deadline).format("DD MMMM, YYYY")} we'll send <b>{this.state.supervisor}</b> an email and ask if you have actually reached your goal.</p>
-            <p>Confirm the transaction on <a href={`https://etherscan.io/tx/${this.state.txHash}`} target="_blank" rel="noopener noreferrer">Etherscan</a>.</p>
+            <p>Confirm the transaction on <a href={`https://rinkeby.etherscan.io/tx/${this.state.txHash}`} target="_blank" rel="noopener noreferrer">Etherscan</a>.</p>
           </div>
         </div>
       );
